@@ -1,0 +1,13 @@
+{
+    "name": "reaper/ui",
+    "description": "Custom UI components for Laravel using Bootstrap",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "David Hajdarovic",
+            "email": "hajdarovicdavid@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
