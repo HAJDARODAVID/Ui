@@ -11,8 +11,17 @@
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "laravel/ui": "^4.6",
-        "reaper/ui": "dev-main"
+        "reaper/ui": "dev-master"
     },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "packages/reaper/ui",
+            "options": {
+                "symlink": true
+            }
+        }
+    ],
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
         "laravel/pint": "^1.0",

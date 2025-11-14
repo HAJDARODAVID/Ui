@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dcbbd52cf3c38d0f1b88e12d39e47db7",
+    "content-hash": "9be96968849067982f0afcf76861a785",
     "packages": [
         {
             "name": "brick/math",
@@ -3221,6 +3221,42 @@
                 "source": "https://github.com/ramsey/uuid/tree/4.9.1"
             },
             "time": "2025-09-04T20:59:21+00:00"
+        },
+        {
+            "name": "reaper/ui",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "packages/reaper/ui",
+                "reference": "4d2be660f3bfd01c4b0e37c7c09219ed95adec4c"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Reaper\\Ui\\ReaperUiServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Reaper\\Ui\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "David Hajdarovic",
+                    "email": "hajdarovicdavid@gmail.com"
+                }
+            ],
+            "description": "Custom UI components for Laravel using Bootstrap",
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "symfony/console",
@@ -8258,7 +8294,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "reaper/ui": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

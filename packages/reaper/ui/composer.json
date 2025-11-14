@@ -8,6 +8,18 @@
             "email": "hajdarovicdavid@gmail.com"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "Reaper\\Ui\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Reaper\\Ui\\ReaperUiServiceProvider"
+            ]
+        }
+    },
     "minimum-stability": "dev",
     "require": {}
 }
