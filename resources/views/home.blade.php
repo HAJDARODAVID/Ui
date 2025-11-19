@@ -14,9 +14,8 @@
                         </div>
                     @endif
 
-                    {{ __('You are logged in!') }} <br>
-                    <x-btn></x-btn> <br>
-                    <x-reaper.ui-btn txt="save" type="test.lg" class="btn-danger"/>
+                    {{ __('You are logged in!') }} <br><br>
+                    <x-reaper.ui-btn txt="save" type="pri.sm"/>
                 </div>
             </div>
         </div>

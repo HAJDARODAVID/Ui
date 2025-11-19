@@ -44,6 +44,21 @@ class SizeType
     }
 
     /**
+     * Call a method to check 
+     * 
+     * @return bool
+     */
+    public function allowedFor($element, $value)
+    {
+        switch ($element) {
+            case 'btn':
+                return $this->allowedForBtn($value);
+                break;
+        }
+        return TRUE;
+    }
+
+    /**
      * Check if the given can be added to a btn element
      * 
      * @return bool

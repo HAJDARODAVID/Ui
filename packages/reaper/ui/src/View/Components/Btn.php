@@ -3,12 +3,17 @@
 namespace Reaper\Ui\View\Components;
 
 use Closure;
-use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
+use Illuminate\Contracts\View\View;
 use Reaper\Ui\Http\Services\SizeType;
+use Reaper\Ui\Trait\StyleArrayToString;
+use Reaper\Ui\Trait\ClassAttributesSetter;
 
 class Btn extends Component
 {
+    use StyleArrayToString;
+    use ClassAttributesSetter;
+
     /**
      * Define the text inside the btn 
      * @var string
@@ -19,13 +24,13 @@ class Btn extends Component
      * Holds all the class attributes that come from the  __construct
      * @var array
      */
-    public $classAtt = ['btn'];
+    public $classAtt = ['btn shadow'];
 
     /**
      * Holds all the style attributes that come from the  __construct
      * @var array
      */
-    public $styleAtt = ['border-radius' => '0px'];
+    public $styleAtt = ['border-radius' => '0px !Important'];
 
     /**
      * Create a new component instance.
@@ -44,6 +49,7 @@ class Btn extends Component
      */
     public function render(): View|Closure|string
     {
+        $this->styleAtt = $this->styleArrayToString($this->styleAtt);
         return view('reaper::components.btn');
     }
 
@@ -55,27 +61,27 @@ class Btn extends Component
      * TypeDefinition: Color.Size.BorderRadius
      * @return void  
      */
-    private function setBtnType(string $type)
+    private function setBtnType(string $type): void
     {
         $attributes = explode('.', $type);
 
         /**btn color */
+        if (isset($attributes[0])) $this->classAtt[] = $this->setColorAttribute($attributes[0], 'btn');
 
         /**btn size */
-        if (isset($attributes[1])) $this->setBtnSizeAttribute($attributes[1]);
+        if (isset($attributes[1])) $this->classAtt[] = $this->setSizeAttribute($attributes[1], 'btn');
 
         /**btn border radius */
-        if (isset($attributes[2])) {
-        }
+        if (isset($attributes[2])) $this->setBorderSizeStyle($attributes[2]);
     }
 
     /**
-     * Set the size class attribute
+     * Set the border radius size
      * 
      * @return void
      */
-    private function setBtnSizeAttribute($size)
+    private function setBorderSizeStyle($size): void
     {
-        if (SizeType::init()->allowedForBtn($size)) $this->classAtt[] = 'btn-' . $size;
+        $this->styleAtt['border-radius'] = $size . ' !Important';
     }
 }
