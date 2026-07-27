@@ -15,7 +15,7 @@
                     @endif
 
                     {{ __('You are logged in!') }} <br><br>
-                    <x-reaper.ui-btn txt="save" type="pri.sm"/>
+                    <x-reaper.ui-btn att="type:dan.size:sm.stop-propagation:TRUE" iconAtt="trash" />
                 </div>
             </div>
         </div>
