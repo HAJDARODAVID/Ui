@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
+use Reaper\Ui\Console\Commands\PublishCommand;
 use Reaper\Ui\Livewire\GlobalModal;
 use Reaper\Ui\View\Components\Btn;
 
@@ -43,5 +44,11 @@ class ReaperUiServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../resources/js/global-modal.js' => resource_path('js/vendor/reaper-ui/global-modal.js'),
         ], 'reaper-ui-assets');
+
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                PublishCommand::class,
+            ]);
+        }
     }
 }

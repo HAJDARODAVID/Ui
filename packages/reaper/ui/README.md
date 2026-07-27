@@ -62,6 +62,22 @@ php artisan vendor:publish --tag=reaper-ui-assets
 
 You only need `reaper-ui-config` if you plan to define [global modals](#global-modal) (see below) — the file ships empty by default. You need `reaper-ui-assets` if you plan to use the global modal's trigger helpers from plain HTML/JS (see [Opening a modal](#opening-a-modal)).
 
+### Or use the package's own publish command
+
+The package also ships `reaper-ui:publish`, a thin wrapper around `vendor:publish` that's scoped to **only** this package's files — so it never touches publishables from other packages, unlike a bare `php artisan vendor:publish`.
+
+```bash
+# publish everything from reaper/ui
+php artisan reaper-ui:publish
+
+# publish only specific tags
+php artisan reaper-ui:publish --tag=reaper-ui-config
+php artisan reaper-ui:publish --tag=reaper-ui-config --tag=reaper-ui-assets
+
+# overwrite files that already exist at the destination
+php artisan reaper-ui:publish --force
+```
+
 ## What the package registers
 
 On boot, `ReaperUiServiceProvider` (`src/ReaperUiServiceProvider.php`):
@@ -70,6 +86,7 @@ On boot, `ReaperUiServiceProvider` (`src/ReaperUiServiceProvider.php`):
 - Registers the `<x-reaper.ui::btn>` Blade component
 - Registers the `global-modal` Livewire component
 - Registers a test route group under the `reaper-ui` prefix/name (`routes/web.php` — currently just a `GET /reaper-ui/test` sanity-check route, not meant for app use)
+- Registers the `reaper-ui:publish` Artisan command (console only)
 
 ## Button component
 
