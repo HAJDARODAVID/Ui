@@ -33,12 +33,12 @@ trait AttributesSetter
      * 
      * @param string $value Needed size.
      * @param string $element BS prefix attribute for a element [btn, form-control].
-     * @return string|NULL
+     * @return string|null
      */
-    protected function setSizeAttribute(string $value, string $element): string|NULL
+    protected function setSizeAttribute(string $value, string $element): string|null
     {
         if (SizeType::init()->allowedFor($element, $value)) return $element . '-' . $value;
-        return NULL;
+        return null;
     }
 
     /**
@@ -46,13 +46,13 @@ trait AttributesSetter
      * 
      * @param string $value Needed color.
      * @param string $element BS prefix attribute for a element [btn, form-control].
-     * @return string|NULL
+     * @return string|null
      */
-    protected function setColorAttribute(string $value, string $element): string|NULL
+    protected function setColorAttribute(string $value, string $element): string|null
     {
         $colorAttribute = ColorType::byType($value);
         if ($colorAttribute->getColor()) return $element . '-' . $colorAttribute->getColorAttribute();
-        return NULL;
+        return null;
     }
 
     /**
@@ -60,18 +60,18 @@ trait AttributesSetter
      * This will check the config file 'reaper-ui.php' for a default value. 
      * 
      * @param string $element BS prefix attribute for a element [btn, form-control].
-     * @param string|NULL $value Default value.
-     * @return string|NULL
+     * @param string|null $value Default value.
+     * @return string|null
      */
-    protected function setDefaultColorAttribute(string $element, ?string $value = NULL): string|NULL
+    protected function setDefaultColorAttribute(string $element, ?string $value = null): string|null
     {
-        /**If the $value is NULL check the config file */
+        /**If the $value is null check the config file */
         if (is_null($value)) {
             //TODO:fixe this
         }
         $colorAttribute = ColorType::byType($value);
         if ($colorAttribute->getColor()) return $element . '-' . $colorAttribute->getColorAttribute();
-        return NULL;
+        return null;
     }
 
     /**
