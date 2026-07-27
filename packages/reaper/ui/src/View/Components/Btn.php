@@ -48,7 +48,7 @@ class Btn extends Component
      * Define the text inside the btn 
      * @var string
      */
-    public $txt = NULL;
+    public $text = NULL;
 
     public $type;
     public $btnColor = self::BTN_COLORS['pri'];
@@ -65,7 +65,7 @@ class Btn extends Component
      * Create a new component instance.
      */
     public function __construct(
-        $txt = NULL,
+        $text = NULL,
         $type = NULL,
         $icon = NULL,
         $action = NULL,
@@ -75,7 +75,7 @@ class Btn extends Component
         $stopPropagation = FALSE,
     ) {
         $this->setBtnType($type)->setIcon($icon);
-        $this->txt = $txt != NULL ? $txt : NULL;
+        $this->text = $text != NULL ? $text : NULL;
         $this->action = $action;
         $this->param = $param;
         $this->link = $link;

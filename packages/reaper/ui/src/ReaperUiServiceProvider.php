@@ -8,7 +8,6 @@ use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 use Reaper\Ui\Console\Commands\PublishCommand;
 use Reaper\Ui\Livewire\GlobalModal;
-use Reaper\Ui\View\Components\Btn;
 
 class ReaperUiServiceProvider extends ServiceProvider
 {
@@ -27,7 +26,7 @@ class ReaperUiServiceProvider extends ServiceProvider
     {
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'reaper');
 
-        Blade::component(Btn::class, 'btn', 'reaper.ui');
+        Blade::componentNamespace('Reaper\\Ui\\View\\Components', 'reaper-ui');
 
         Livewire::component('reaper-ui-modal', GlobalModal::class);
 

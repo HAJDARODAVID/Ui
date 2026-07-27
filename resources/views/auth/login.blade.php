@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Login') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
+                    {{-- <form method="POST" action="{{ route('login') }}">
                         @csrf
 
                         <div class="row mb-3">
@@ -64,7 +64,9 @@
                                 @endif
                             </div>
                         </div>
-                    </form>
+                    </form> --}}
+                    Devamo zajedno
+                    <x-reaper-ui::btn text="Save" type="pri.sm" />
                 </div>
             </div>
         </div>

@@ -83,19 +83,19 @@ php artisan reaper-ui:publish --force
 On boot, `ReaperUiServiceProvider` (`src/ReaperUiServiceProvider.php`):
 
 - Loads package views under the `reaper::` namespace (`resources/views`)
-- Registers the `<x-reaper.ui::btn>` Blade component
+- Registers the `<x-reaper-ui::btn>` Blade component
 - Registers the `global-modal` Livewire component
 - Registers a test route group under the `reaper-ui` prefix/name (`routes/web.php` — currently just a `GET /reaper-ui/test` sanity-check route, not meant for app use)
 - Registers the `reaper-ui:publish` Artisan command (console only)
 
 ## Button component
 
-`<x-reaper.ui::btn>` renders a Bootstrap button (or an `<a>` if `link` is given and resolves to a named route).
+`<x-reaper-ui::btn>` renders a Bootstrap button (or an `<a>` if `link` is given and resolves to a named route).
 
 ```blade
-<x-reaper.ui::btn text="Save" type="pri.sm" />
+<x-reaper-ui::btn text="Save" type="pri.sm" />
 
-<x-reaper.ui::btn text="Delete" type="dan" icon="trash" wClickMethod="delete" wClickParam="{{ $id }}" />
+<x-reaper-ui::btn text="Delete" type="dan" icon="trash" wClickMethod="delete" wClickParam="{{ $id }}" />
 ```
 
 ### Props
@@ -130,10 +130,10 @@ Renders a [Bootstrap Icon](https://icons.getbootstrap.com/) (`<i class="bi bi-..
 
 ```blade
 {{-- shorthand: just the icon name --}}
-<x-reaper.ui::btn text="Edit" icon="pencil" />
+<x-reaper-ui::btn text="Edit" icon="pencil" />
 
 {{-- explicit form: icon + position (start/end, default start) --}}
-<x-reaper.ui::btn text="Next" icon="arrow-right.end" />
+<x-reaper-ui::btn text="Next" icon="arrow-right.end" />
 ```
 
 Two names are aliased for backwards compatibility with the host app's original icon set: `save` → `bi bi-floppy`, `add` → `bi bi-plus-circle`. Any other name is used as-is (`bi bi-{name}`).
@@ -238,4 +238,4 @@ The modal closes when the user clicks the backdrop, clicks the `×` close button
 ## Notes / known limitations
 
 - The `routes/web.php` file registered under the `reaper-ui` prefix currently only contains a placeholder test route (`GET /reaper-ui/test`) — it's not part of the public API and can be ignored.
-- Only `sm` and `lg` sizes are honored on `<x-reaper.ui::btn>`.
+- Only `sm` and `lg` sizes are honored on `<x-reaper-ui::btn>`.

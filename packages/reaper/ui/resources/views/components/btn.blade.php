@@ -6,7 +6,7 @@
             @if ($iconName && $iconPosition == 'start')
                 <i class="bi bi-{{ $iconName }}"></i>
             @endif
-            {{ $slot }}{{ $txt }}
+            {{ $slot }}{{ $text }}
             @if ($iconName && $iconPosition == 'end')
                 <i class="bi bi-{{ $iconName }}"></i>
             @endif
@@ -30,7 +30,7 @@
                     <i class="bi bi-{{ $iconName }}"></i>
                 @endif
             @endif
-            {{ $slot }}{{ $txt }}
+            {{ $slot }}{{ $text }}
             @if ($iconName && $iconPosition == 'end')
                 <i class="bi bi-{{ $iconName }}"></i>
             @endif
