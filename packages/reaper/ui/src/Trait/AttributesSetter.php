@@ -67,7 +67,7 @@ trait AttributesSetter
     {
         /**If the $value is NULL check the config file */
         if (is_null($value)) {
-            dd('gay ass nigga');
+            //TODO:fixe this
         }
         $colorAttribute = ColorType::byType($value);
         if ($colorAttribute->getColor()) return $element . '-' . $colorAttribute->getColorAttribute();
