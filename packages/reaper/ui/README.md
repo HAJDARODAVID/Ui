@@ -90,53 +90,53 @@ On boot, `ReaperUiServiceProvider` (`src/ReaperUiServiceProvider.php`):
 
 ## Button component
 
-`<x-reaper.ui::btn>` renders a Bootstrap button (or an `<a>` if a `route` is given).
+`<x-reaper.ui::btn>` renders a Bootstrap button (or an `<a>` if `link` is given and resolves to a named route).
 
 ```blade
-<x-reaper.ui::btn txt="Save" att="type:pri.size:sm" />
+<x-reaper.ui::btn text="Save" type="pri.sm" />
 
-<x-reaper.ui::btn att="type:dan" route="users.destroy" iconAtt="icon:trash.position:left">
-    Delete
-</x-reaper.ui::btn>
+<x-reaper.ui::btn text="Delete" type="dan" icon="trash" wClickMethod="delete" wClickParam="{{ $id }}" />
 ```
 
 ### Props
 
 | Prop | Type | Description |
 |---|---|---|
-| `txt` | string | Button label (alternative to passing the slot) |
-| `att` | string | Dot-separated attribute string, see below |
-| `iconAtt` | string | Icon config, see below |
-| `route` | string | A named route. If set (and it exists), renders an `<a href="{{ route(...) }}">` instead of a `<button>` |
+| `text` | string | Button label (alternative to passing the slot) |
+| `type` | string | Dot-separated `color.size`, see below |
+| `icon` | string | Dot-separated `icon-name.position`, see below |
+| `wClickMethod` / `wClickParam` | string | Renders `wire:click="{method}('{param}')"` |
+| `action` / `param` | string | Alternative to `wClickMethod`/`wClickParam` — same `wire:click="{action}('{param}')"` output, takes precedence if both are set |
+| `link` | string | A named route. If set (and it exists via `Route::has()`), renders an `<a href="{{ route(...) }}">` instead of a `<button>` |
 | `disabled` | bool | Adds the `disabled` attribute |
+| `stopPropagation` | bool | Adds `onclick="event.stopPropagation();"` |
 
-Regular Blade attributes (`class`, `wire:click`, `id`, `onclick`, ...) can be passed normally and are merged onto the root element.
+Regular Blade attributes (`class`, `id`, ...) can be passed normally and are merged onto the root `<button>` element (not the `<a>` variant).
 
-### `att` — color, size, behavior
+### `type` — color and size
 
-Dot-separated `key:value` pairs:
+Dot-separated, `color[.size]`:
 
 ```
-att="type:pri.size:sm.stop-propagation"
+type="pri.sm"
 ```
 
-- `type:<color>` — one of `pri`, `sec`, `suc`, `dan`, `war`, `inf`, `lig`, `dar`, `lin` (primary, secondary, success, danger, warning, info, light, dark, link) → adds `btn-{color}`
-- `size:<size>` — only `sm` (small) or `lg` (large) are valid for buttons → adds `btn-{size}`. Any other size is silently ignored.
-- `stop-propagation` — no value; adds `onclick="event.stopPropagation();"` to the element
+- Color (required position): one of `pri`, `sec`, `suc`, `dan`, `war`, `inf`, `lig`, `dar`, `lin` (primary, secondary, success, danger, warning, info, light, dark, link) → adds `btn-{color}`. Defaults to `pri` if omitted/unrecognized.
+- Size (optional, second position): `sm` or `lg` → adds `btn-{size}`. Any other value is silently ignored.
 
-### `iconAtt` — icon
+### `icon` — icon
 
 Renders a [Bootstrap Icon](https://icons.getbootstrap.com/) (`<i class="bi bi-...">`) next to the label.
 
 ```blade
 {{-- shorthand: just the icon name --}}
-<x-reaper.ui::btn txt="Edit" iconAtt="pencil" />
+<x-reaper.ui::btn text="Edit" icon="pencil" />
 
-{{-- explicit form: icon + position (left/right, default left) --}}
-<x-reaper.ui::btn txt="Next" iconAtt="icon:arrow-right.position:right" />
+{{-- explicit form: icon + position (start/end, default start) --}}
+<x-reaper.ui::btn text="Next" icon="arrow-right.end" />
 ```
 
-You can pass either the bare icon name (`pencil`) or the full class (`bi bi-pencil`) — the `bi bi-` prefix is added automatically if missing.
+Two names are aliased for backwards compatibility with the host app's original icon set: `save` → `bi bi-floppy`, `add` → `bi bi-plus-circle`. Any other name is used as-is (`bi bi-{name}`).
 
 ## Global Modal
 
@@ -238,4 +238,4 @@ The modal closes when the user clicks the backdrop, clicks the `×` close button
 ## Notes / known limitations
 
 - The `routes/web.php` file registered under the `reaper-ui` prefix currently only contains a placeholder test route (`GET /reaper-ui/test`) — it's not part of the public API and can be ignored.
-- Only `sm` and `lg` sizes are honored on `<x-reaper.ui::btn>`; `md`, `xl`, `xxl` are defined in `SizeType` but not wired up for buttons.
+- Only `sm` and `lg` sizes are honored on `<x-reaper.ui::btn>`.

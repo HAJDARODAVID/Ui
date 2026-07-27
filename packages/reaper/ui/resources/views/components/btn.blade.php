@@ -1,19 +1,39 @@
-@php
-    $tag = $route ? 'a' : 'button';
-@endphp
-<{{$tag}} 
-    @if($route && Route::has($route)) href="{{ route($route) }}" @endif
-    {{ $attributes->merge(['class' => implode(" ", $classAtt), 'style' => $styleAtt]) }}
-    @if($disabled) disabled @endif
-    @if ($stopPropagation) onclick="event.stopPropagation();" @endif
->
-    <div class="d-flex align-items-center gap-2">
-        @if($iconAtt['icon'] && $iconAtt['position'] == 'left')
-            <div class=""><i class="{{ $iconAtt['icon'] }}"></i></div>
+@if ($link)
+    <a
+        @if(Route::has($link)) href="{{ route($link) }}" @endif
+        class="btn {{ $btnColor }} @if($btnSize){{ $btnSize }} @endif shadow no-border-radius">
+        <div class="d-flex align-items-center gap-2">
+            @if ($iconName && $iconPosition == 'start')
+                <i class="bi bi-{{ $iconName }}"></i>
+            @endif
+            {{ $slot }}{{ $txt }}
+            @if ($iconName && $iconPosition == 'end')
+                <i class="bi bi-{{ $iconName }}"></i>
+            @endif
+        </div>
+    </a>
+@else
+    <button
+        type="button"
+        class="btn {{ $btnColor }} @if($btnSize){{ $btnSize }} @endif shadow"
+        style="border-radius: 0px!Important;"
+        {{ $attributes }}
+        @if ($action)
+            wire:click="{{ $action }}('{{ $param }}')"
         @endif
-        @if($txt || $slot != "") <div class="">{{ $txt }}{{ $slot }}</div> @endif
-        @if($iconAtt['icon'] && $iconAtt['position'] == 'right')
-            <div class=""><i class="{{ $iconAtt['icon'] }}"></i></div>
-        @endif
-    </div>  
-</{{$tag}}>
+
+        @if ($disabled) disabled @endif
+        @if ($stopPropagation) onclick="event.stopPropagation();" @endif>
+        <div class="d-flex align-items-center gap-2">
+            @if($iconName)
+                @if ($iconPosition == 'start')
+                    <i class="bi bi-{{ $iconName }}"></i>
+                @endif
+            @endif
+            {{ $slot }}{{ $txt }}
+            @if ($iconName && $iconPosition == 'end')
+                <i class="bi bi-{{ $iconName }}"></i>
+            @endif
+        </div>
+    </button>
+@endif
