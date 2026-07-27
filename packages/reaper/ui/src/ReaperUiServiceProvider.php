@@ -29,7 +29,7 @@ class ReaperUiServiceProvider extends ServiceProvider
 
         Blade::component(Btn::class, 'btn', 'reaper.ui');
 
-        Livewire::component('global-modal', GlobalModal::class);
+        Livewire::component('reaper-ui-modal', GlobalModal::class);
 
         Route::prefix('reaper-ui')
             ->as("reaper-ui")
