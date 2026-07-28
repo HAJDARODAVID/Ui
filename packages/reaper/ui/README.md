@@ -84,7 +84,7 @@ On boot, `ReaperUiServiceProvider` (`src/ReaperUiServiceProvider.php`):
 
 - Loads package views under the `reaper::` namespace (`resources/views`)
 - Registers the `<x-reaper-ui::btn>` Blade component
-- Registers the `global-modal` Livewire component
+- Registers the `reaper-ui-modal` Livewire component
 - Registers a test route group under the `reaper-ui` prefix/name (`routes/web.php` — currently just a `GET /reaper-ui/test` sanity-check route, not meant for app use)
 - Registers the `reaper-ui:publish` Artisan command (console only)
 
@@ -95,7 +95,7 @@ On boot, `ReaperUiServiceProvider` (`src/ReaperUiServiceProvider.php`):
 ```blade
 <x-reaper-ui::btn text="Save" type="pri.sm" />
 
-<x-reaper-ui::btn text="Delete" type="dan" icon="trash" wClickMethod="delete" wClickParam="{{ $id }}" />
+<x-reaper-ui::btn text="Delete" type="dan" icon="trash" action="delete" param="{{ $id }}" />
 ```
 
 ### Props
@@ -105,8 +105,7 @@ On boot, `ReaperUiServiceProvider` (`src/ReaperUiServiceProvider.php`):
 | `text` | string | Button label (alternative to passing the slot) |
 | `type` | string | Dot-separated `color.size`, see below |
 | `icon` | string | Dot-separated `icon-name.position`, see below |
-| `wClickMethod` / `wClickParam` | string | Renders `wire:click="{method}('{param}')"` |
-| `action` / `param` | string | Alternative to `wClickMethod`/`wClickParam` — same `wire:click="{action}('{param}')"` output, takes precedence if both are set |
+| `action` / `param` | string | Renders `wire:click="{action}('{param}')"` |
 | `link` | string | A named route. If set (and it exists via `Route::has()`), renders an `<a href="{{ route(...) }}">` instead of a `<button>` |
 | `disabled` | bool | Adds the `disabled` attribute |
 | `stopPropagation` | bool | Adds `onclick="event.stopPropagation();"` |
@@ -168,7 +167,7 @@ Each top-level key (`edit-user` above) is the **modal name** you reference when 
 
 ```blade
 {{-- e.g. resources/views/layouts/app.blade.php, near the end of <body> --}}
-<livewire:global-modal />
+<livewire:reaper-ui-modal />
 ```
 
 ### 3. Load the JS trigger helper (optional — only for non-Livewire triggers)
