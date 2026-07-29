@@ -48,15 +48,36 @@ class Btn extends Component
      * Define the text inside the btn 
      * @var string
      */
-    public $text = NULL;
+    public $txt = null;
+
+    /**
+     * Sets the btn component to a open-modal component.
+     * This will open the global-modal with the given name for the modal component 
+     * @var string
+     */
+    public $modal = null;
+
+    /**
+     * Store all the component class attributes.
+     * 
+     * @var array
+     */
+    public $classAttributes = [];
+
+    /**
+     * Store all the component style attributes.
+     *  
+     * @var array
+     */
+    public $styleAttributes = [];
 
     public $type;
     public $btnColor = self::BTN_COLORS['pri'];
     public $btnSize = FALSE;
     public $iconName = FALSE;
     public $iconPosition = self::ICON_POSITION['start'];
-    public $action = NULL;
-    public $param = NULL;
+    public $action = null;
+    public $param = null;
     public $link;
     public $disabled = FALSE;
     public $stopPropagation = FALSE;
@@ -65,17 +86,20 @@ class Btn extends Component
      * Create a new component instance.
      */
     public function __construct(
-        $text = NULL,
-        $type = NULL,
-        $icon = NULL,
-        $action = NULL,
-        $param = NULL,
-        $link = NULL,
+        $txt = null,
+        ?string $modal = null,
+        $type = null,
+        $icon = null,
+        $action = null,
+        $param = null,
+        $link = null,
         $disabled = FALSE,
         $stopPropagation = FALSE,
     ) {
-        $this->setBtnType($type)->setIcon($icon);
-        $this->text = $text != NULL ? $text : NULL;
+        $this->setBtnType($type)->setIcon($icon)
+            ->setInitClass()->setInitStyle();
+        $this->txt = $txt != null ? $txt : null;
+        $this->modal = $modal != null ? $modal : null;
         $this->action = $action;
         $this->param = $param;
         $this->link = $link;
@@ -83,30 +107,52 @@ class Btn extends Component
         $this->stopPropagation = $stopPropagation;
     }
 
-    private function setBtnType($type = NULL)
+    private function setBtnType($type = null)
     {
         if (is_null($type)) return $this;
 
         $att = explode('.', $type);
-        if (($att[0] != "" || $att[0] != NULL) && array_key_exists($att[0], self::BTN_COLORS)) $this->btnColor = self::BTN_COLORS[$att[0]];
+        if (($att[0] != "" || $att[0] != null) && array_key_exists($att[0], self::BTN_COLORS)) $this->btnColor = self::BTN_COLORS[$att[0]];
         if (isset($att[1])) {
-            if (($att[1] != "" || $att[1] != NULL) && array_key_exists($att[1], self::BTN_SIZE)) $this->btnSize = self::BTN_SIZE[$att[1]];
+            if (($att[1] != "" || $att[1] != null) && array_key_exists($att[1], self::BTN_SIZE)) $this->btnSize = self::BTN_SIZE[$att[1]];
         }
         return $this;
     }
 
-    private function setIcon($icon = NULL)
+    private function setIcon($icon = null): self
     {
-        if (is_null($icon)) return;
+        if (is_null($icon)) return $this;
 
         $att = explode('.', $icon);
-        if (($att[0] != "" || $att[0] != NULL)) {
+        if (($att[0] != "" || $att[0] != null)) {
             $this->iconName = array_key_exists($att[0], self::ICON_ALIAS) ? self::ICON_ALIAS[$att[0]] : $att[0];
         }
         if (isset($att[1])) {
-            if (($att[1] != "" || $att[1] != NULL) && array_key_exists($att[1], self::ICON_POSITION)) $this->iconPosition = self::ICON_POSITION[$att[1]];
+            if (($att[1] != "" || $att[1] != null) && array_key_exists($att[1], self::ICON_POSITION)) $this->iconPosition = self::ICON_POSITION[$att[1]];
         }
-        return;
+        return $this;
+    }
+
+    /**
+     * Set the initial class attributes
+     * 
+     * @return self
+     */
+    private function setInitClass(): self
+    {
+        $this->classAttributes = ['btn', $this->btnColor, $this->btnSize, 'shadow'];
+        return $this;
+    }
+
+    /**
+     * Set the initial styles attributes
+     * 
+     * @return self
+     */
+    private function setInitStyle(): self
+    {
+        $this->styleAttributes = ['border-radius: 0px!Important'];
+        return $this;
     }
 
     /**

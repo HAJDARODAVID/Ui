@@ -6,7 +6,7 @@
             @if ($iconName && $iconPosition == 'start')
                 <i class="bi bi-{{ $iconName }}"></i>
             @endif
-            {{ $slot }}{{ $text }}
+            {{ $slot }}{{ $txt }}
             @if ($iconName && $iconPosition == 'end')
                 <i class="bi bi-{{ $iconName }}"></i>
             @endif
@@ -15,9 +15,14 @@
 @else
     <button
         type="button"
-        class="btn {{ $btnColor }} @if($btnSize){{ $btnSize }} @endif shadow"
-        style="border-radius: 0px!Important;"
-        {{ $attributes }}
+        {{ $attributes->merge([
+            'class' => implode(' ', $classAttributes),
+            'style' => implode('; ', $styleAttributes)
+            ]) }}
+        @if ($modal)
+            data-trigger="global-modal" 
+            data-component="{{ $modal }}"
+        @endif
         @if ($action)
             wire:click="{{ $action }}('{{ $param }}')"
         @endif
@@ -30,10 +35,12 @@
                     <i class="bi bi-{{ $iconName }}"></i>
                 @endif
             @endif
-            {{ $slot }}{{ $text }}
+            {{ $slot }}{{ $txt }}
             @if ($iconName && $iconPosition == 'end')
                 <i class="bi bi-{{ $iconName }}"></i>
             @endif
         </div>
     </button>
 @endif
+
+{{-- data-trigger="global-modal" data-component="worker-attendance-info" --}}

@@ -65,8 +65,8 @@
                             </div>
                         </div>
                     </form> --}}
-                    Devamo zajedno
-                    <x-reaper-ui::btn text="Save" type="pri.sm" />
+                    Devamo zajedno <br>
+                    <x-reaper-ui::btn txt="Save" type="pri.sm" modal="test-tis" class="test"/>
                 </div>
             </div>
         </div>
