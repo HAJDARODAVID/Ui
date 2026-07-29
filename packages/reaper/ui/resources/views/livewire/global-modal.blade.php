@@ -12,6 +12,11 @@
 >
     <style>
         [x-cloak] { display: none !important; }
+        .modal-bg-blur {
+            background-color: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
     </style>
 
     <div

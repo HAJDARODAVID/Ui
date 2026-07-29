@@ -13,6 +13,8 @@
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
+    @livewireStyles
+
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
@@ -75,6 +77,8 @@
         <main class="py-4">
             @yield('content')
         </main>
+        <livewire:reaper-ui-modal />
     </div>
+    @livewireScripts
 </body>
 </html>

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Process;
 
 class ReleasePackageCommand extends Command
 {
-    protected $signature = 'reaper-ui:release';
+    protected $signature = 'reaper-ui:release {--dev : Push to master without creating a new tag}';
 
     protected $description = 'Sync packages/reaper/ui to the reaper-ui repo and cut a new tagged release';
 
@@ -17,6 +17,10 @@ class ReleasePackageCommand extends Command
 
     public function handle(): int
     {
+        if ($this->option('dev')) {
+            return $this->releaseDev();
+        }
+
         $lastTag = $this->lastTag();
         $this->info('Last tag: '.($lastTag ?? '(none yet)'));
 
@@ -67,6 +71,24 @@ class ReleasePackageCommand extends Command
         }
 
         $this->info("Released {$tag}.");
+
+        return self::SUCCESS;
+    }
+
+    private function releaseDev(): int
+    {
+        if (! $this->confirm('Sync package code and push to master on '.self::REMOTE.'?', true)) {
+            $this->warn('Aborted.');
+
+            return self::SUCCESS;
+        }
+
+        $this->info('Syncing latest package code...');
+        if (! $this->runGit(['git', 'subtree', 'push', '--prefix='.self::PREFIX, self::REMOTE, 'master'])) {
+            return self::FAILURE;
+        }
+
+        $this->info('Pushed to master (dev-master).');
 
         return self::SUCCESS;
     }
